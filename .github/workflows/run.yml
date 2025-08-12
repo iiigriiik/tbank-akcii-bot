@@ -1,0 +1,29 @@
+name: Авто-парсинг акций Т-Банка
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Каждые 6 часов
+  workflow_dispatch:       # Можно запустить вручную
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Загрузить код
+        uses: actions/checkout@v4
+
+      - name: 🐍 Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Установить зависимости
+        run: |
+          pip install -r requirements.txt
+
+      - name: ▶️ Запустить парсер
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        run: |
+          python src/parser.py
