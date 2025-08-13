@@ -1,0 +1,12 @@
+# Конфигурация
+config.py
+
+# Папка с данными
+data/
+
+# Временные файлы Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
